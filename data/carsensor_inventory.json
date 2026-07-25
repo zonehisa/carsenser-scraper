@@ -13,19 +13,6 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU7170808372/index.html"
   },
   {
-    "name": "トヨタ ヴェルファイア",
-    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
-    "year": "2023(R05)",
-    "mileage": "0.3万km",
-    "engine_size": "2500cc",
-    "inspection": "2026(R08)年10月",
-    "repair_history": "なし",
-    "price": "757.0万円",
-    "total_price": "769.1万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
-  },
-  {
     "name": "スズキ ワゴンRスマイル",
     "description": "660 ハイブリッド X　ディスプレイオーディオ　Bカメラ （パール）",
     "year": "2024(R06)",
@@ -37,6 +24,19 @@
     "total_price": "156万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/209/273/U00048209273/U00048209273_003L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6225008726/index.html"
+  },
+  {
+    "name": "トヨタ ヴェルファイア",
+    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
+    "year": "2023(R05)",
+    "mileage": "0.3万km",
+    "engine_size": "2500cc",
+    "inspection": "2026(R08)年10月",
+    "repair_history": "なし",
+    "price": "757.0万円",
+    "total_price": "769.1万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
   },
   {
     "name": "トヨタ ランドクルーザー250",
@@ -52,19 +52,6 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6554728468/index.html"
   },
   {
-    "name": "スズキ スペーシア",
-    "description": "660 ハイブリッド X セーフティプラスパッケージ装着車　全方位モニター付メモリーナビゲーション　セーフティプラス　スズキコネクト対応通信機装着車　両側電動スライドドア （オフブルーM ソフトベージュ2トーンルーフ）",
-    "year": "2025(R07)",
-    "mileage": "9km",
-    "engine_size": "660cc",
-    "inspection": "2028(R10)年2月",
-    "repair_history": "なし",
-    "price": "193.0万円",
-    "total_price": "198万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/561/563/U00051561563/U00051561563_002L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6792116756/index.html"
-  },
-  {
     "name": "ダイハツ ムーヴ",
     "description": "660 X SA　衝突軽減ブレーキスマートアシスト　プッシュボタンスタート　CD （プラムブラウンクリスタルマイカ）",
     "year": "2014(H26)",
@@ -76,6 +63,19 @@
     "total_price": "68万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/363/627/U00051363627/U00051363627_003L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6752238142/index.html"
+  },
+  {
+    "name": "スズキ スペーシア",
+    "description": "660 ハイブリッド X セーフティプラスパッケージ装着車　全方位モニター付メモリーナビゲーション　セーフティプラス　スズキコネクト対応通信機装着車　両側電動スライドドア （オフブルーM ソフトベージュ2トーンルーフ）",
+    "year": "2025(R07)",
+    "mileage": "9km",
+    "engine_size": "660cc",
+    "inspection": "2028(R10)年2月",
+    "repair_history": "なし",
+    "price": "193.0万円",
+    "total_price": "198万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/561/563/U00051561563/U00051561563_002L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6792116756/index.html"
   },
   {
     "name": "いすゞ エルフ",
