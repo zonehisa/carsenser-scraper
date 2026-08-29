@@ -1,14 +1,14 @@
 [
   {
     "name": "ダイハツ タント",
-    "description": "660 カスタム X スタイルセレクション　車高調・ローダウン・両側電動ドア・SDナビ・バックカメラ・衝突軽減装置・禁煙車・ハーフレザーシート・コーナーセンサー・スマートキー・フルセグ・Bluetooth・LEDヘッド・ETC・オートハイビーム （パールブラック）",
+    "description": "660 カスタム X スタイルセレクション　車高調・ローダウン・両側電動ドア・SDナビ・バックカメラ・衝突軽減装置・禁煙車・ハーフレザーシート・コーナーセンサー・スマートキー・フルセグ・Bluetooth・LEDヘッド・ETC・オートハイビーム （ブラック）",
     "year": "2021(R03)",
     "mileage": "4.8万km",
     "engine_size": "660cc",
     "inspection": "2028(R10)年2月",
     "repair_history": "なし",
-    "price": "139.0万円",
-    "total_price": "146万円",
+    "price": "132.0万円",
+    "total_price": "139.8万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/485/716/U00053485716/U00053485716_003L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU7170808372/index.html"
   },
@@ -26,6 +26,19 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6225008726/index.html"
   },
   {
+    "name": "ダイハツ タント",
+    "description": "660 L　SDナビ　フルセグ・地デジ　Bluetooth　CD　DVD再生　ETC　キーレス　両側スライドドア アイドリングストップ （コットンアイボリー）",
+    "year": "2016(H28)",
+    "mileage": "7.2万km",
+    "engine_size": "660cc",
+    "inspection": "2027(R09)年12月",
+    "repair_history": "なし",
+    "price": "62.0万円",
+    "total_price": "69.8万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/880/298/U00053880298/U00053880298_002L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU7272692395/index.html"
+  },
+  {
     "name": "トヨタ ヴェルファイア",
     "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
     "year": "2023(R05)",
@@ -34,9 +47,22 @@
     "inspection": "2026(R08)年10月",
     "repair_history": "なし",
     "price": "757.0万円",
-    "total_price": "769.1万円",
+    "total_price": "768.8万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
+  },
+  {
+    "name": "ダイハツ タント",
+    "description": "660 X　スマートアシスト　パワースライドドア　シートヒーター　前後ソナー　ロールサンシェード　パーソナルテーブル　LEDヘッドランプ　アイドリングストップ　禁煙車 （レーザーブルークリスタルシャイン）",
+    "year": "2021(R03)",
+    "mileage": "3.6万km",
+    "engine_size": "660cc",
+    "inspection": "車検整備付",
+    "repair_history": "なし",
+    "price": "118.0万円",
+    "total_price": "128万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/717/696/U00053717696/U00053717696_003L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU7221435403/index.html"
   },
   {
     "name": "トヨタ ランドクルーザー250",
@@ -47,28 +73,15 @@
     "inspection": "2027(R09)年7月",
     "repair_history": "なし",
     "price": "759.0万円",
-    "total_price": "768.8万円",
+    "total_price": "768.4万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/056/261/U00050056261/U00050056261_008L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6554728468/index.html"
-  },
-  {
-    "name": "ダイハツ ムーヴ",
-    "description": "660 X SA　衝突軽減ブレーキスマートアシスト　プッシュボタンスタート　CD （プラムブラウンクリスタルマイカ）",
-    "year": "2014(H26)",
-    "mileage": "6.2万km",
-    "engine_size": "660cc",
-    "inspection": "車検整備付",
-    "repair_history": "なし",
-    "price": "60.0万円",
-    "total_price": "68万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/363/627/U00051363627/U00051363627_003L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6752238142/index.html"
   },
   {
     "name": "スズキ スペーシア",
     "description": "660 ハイブリッド X セーフティプラスパッケージ装着車　全方位モニター付メモリーナビゲーション　セーフティプラス　スズキコネクト対応通信機装着車　両側電動スライドドア （オフブルーM ソフトベージュ2トーンルーフ）",
     "year": "2025(R07)",
-    "mileage": "9km",
+    "mileage": "0.4万km",
     "engine_size": "660cc",
     "inspection": "2028(R10)年2月",
     "repair_history": "なし",
