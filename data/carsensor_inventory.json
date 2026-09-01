@@ -26,19 +26,6 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6225008726/index.html"
   },
   {
-    "name": "ダイハツ タント",
-    "description": "660 L　SDナビ　フルセグ・地デジ　Bluetooth　CD　DVD再生　ETC　キーレス　両側スライドドア アイドリングストップ （コットンアイボリー）",
-    "year": "2016(H28)",
-    "mileage": "7.2万km",
-    "engine_size": "660cc",
-    "inspection": "2027(R09)年12月",
-    "repair_history": "なし",
-    "price": "62.0万円",
-    "total_price": "69.8万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/880/298/U00053880298/U00053880298_002L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU7272692395/index.html"
-  },
-  {
     "name": "トヨタ ヴェルファイア",
     "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
     "year": "2023(R05)",
@@ -47,7 +34,7 @@
     "inspection": "2026(R08)年10月",
     "repair_history": "なし",
     "price": "757.0万円",
-    "total_price": "768.8万円",
+    "total_price": "768.5万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
   },
@@ -65,6 +52,19 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU7221435403/index.html"
   },
   {
+    "name": "ダイハツ タント",
+    "description": "660 L　SDナビ　フルセグ・地デジ　Bluetooth　CD　DVD再生　ETC　キーレス　両側スライドドア アイドリングストップ （コットンアイボリー）",
+    "year": "2016(H28)",
+    "mileage": "7.2万km",
+    "engine_size": "660cc",
+    "inspection": "2027(R09)年12月",
+    "repair_history": "なし",
+    "price": "62.0万円",
+    "total_price": "69.8万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/880/298/U00053880298/U00053880298_002L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU7272692395/index.html"
+  },
+  {
     "name": "トヨタ ランドクルーザー250",
     "description": "2.7 VX ファースト エディション 4WD　ワンオーナー　オプション確認下さい　丸目ヘッドライト ルーフラック JAOSフェンダーガーニッシュ モデリスタドアハンドルプロテクト モデリスタリアバンパーステップガード モデリスタバックドアガーニッシュ （サンド）",
     "year": "2024(R06)",
@@ -73,7 +73,7 @@
     "inspection": "2027(R09)年7月",
     "repair_history": "なし",
     "price": "759.0万円",
-    "total_price": "768.4万円",
+    "total_price": "768万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/056/261/U00050056261/U00050056261_008L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6554728468/index.html"
   },
