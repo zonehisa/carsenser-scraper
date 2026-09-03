@@ -26,19 +26,6 @@
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6225008726/index.html"
   },
   {
-    "name": "トヨタ ヴェルファイア",
-    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
-    "year": "2023(R05)",
-    "mileage": "0.3万km",
-    "engine_size": "2500cc",
-    "inspection": "2026(R08)年10月",
-    "repair_history": "なし",
-    "price": "757.0万円",
-    "total_price": "768.5万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
-  },
-  {
     "name": "ダイハツ タント",
     "description": "660 X　スマートアシスト　パワースライドドア　シートヒーター　前後ソナー　ロールサンシェード　パーソナルテーブル　LEDヘッドランプ　アイドリングストップ　禁煙車 （レーザーブルークリスタルシャイン）",
     "year": "2021(R03)",
@@ -50,6 +37,19 @@
     "total_price": "128万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/717/696/U00053717696/U00053717696_003L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU7221435403/index.html"
+  },
+  {
+    "name": "トヨタ ヴェルファイア",
+    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
+    "year": "2023(R05)",
+    "mileage": "0.3万km",
+    "engine_size": "2500cc",
+    "inspection": "2026(R08)年10月",
+    "repair_history": "なし",
+    "price": "757.0万円",
+    "total_price": "768.5万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
   },
   {
     "name": "ダイハツ タント",
