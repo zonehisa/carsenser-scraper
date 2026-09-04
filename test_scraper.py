@@ -5,9 +5,23 @@ from unittest.mock import patch
 import scraper
 
 
+class FakeCarLink:
+    def __init__(self, href="https://example.test/usedcar/detail/1/"):
+        self.href = href
+
+    def get_attribute(self, name):
+        return self.href if name == "href" else None
+
+
 class FakePage:
     def goto(self, *args, **kwargs):
         return None
+
+    def wait_for_selector(self, *args, **kwargs):
+        return None
+
+    def query_selector_all(self, *args, **kwargs):
+        return [FakeCarLink()]
 
     def wait_for_timeout(self, *args, **kwargs):
         return None
@@ -41,6 +55,134 @@ class FakePlaywright:
 
 
 class ScrapeInventoryTest(unittest.TestCase):
+    def setUp(self):
+        self.stability_wait_patcher = patch.object(scraper, "SHOP_LINK_STABILITY_WAIT", 0)
+        self.stability_wait_patcher.start()
+        self.addCleanup(self.stability_wait_patcher.stop)
+
+    def test_retries_shop_page_until_success(self):
+        class RetryPage:
+            def __init__(self):
+                self.goto_calls = 0
+                self.goto_kwargs = []
+
+            def goto(self, *args, **kwargs):
+                self.goto_calls += 1
+                self.goto_kwargs.append(kwargs)
+                if self.goto_calls == 1:
+                    raise TimeoutError("temporary timeout")
+
+            def wait_for_selector(self, *args, **kwargs):
+                return None
+
+            def query_selector_all(self, *args, **kwargs):
+                return [FakeCarLink()]
+
+            def wait_for_timeout(self, *args, **kwargs):
+                return None
+
+        page = RetryPage()
+
+        with (
+            patch.object(scraper, "PlaywrightTimeout", TimeoutError),
+            patch.object(scraper, "SHOP_MAX_RETRIES", 2),
+            patch.object(scraper, "RETRY_DELAY", 0),
+            patch.object(scraper, "SHOP_WAIT_UNTIL", "domcontentloaded"),
+            patch.object(scraper.time, "sleep"),
+        ):
+            self.assertTrue(scraper.load_shop_page_with_retries(page))
+
+        self.assertEqual(page.goto_calls, 2)
+        self.assertEqual(
+            [kwargs["wait_until"] for kwargs in page.goto_kwargs],
+            ["domcontentloaded", "domcontentloaded"],
+        )
+
+    def test_retries_shop_page_when_car_links_are_not_ready(self):
+        class SelectorRetryPage:
+            def __init__(self):
+                self.goto_calls = 0
+                self.selector_calls = 0
+
+            def goto(self, *args, **kwargs):
+                self.goto_calls += 1
+
+            def wait_for_selector(self, *args, **kwargs):
+                self.selector_calls += 1
+                if self.selector_calls == 1:
+                    raise TimeoutError("car links are not ready")
+
+            def query_selector_all(self, *args, **kwargs):
+                return [FakeCarLink()]
+
+            def wait_for_timeout(self, *args, **kwargs):
+                return None
+
+        page = SelectorRetryPage()
+
+        with (
+            patch.object(scraper, "PlaywrightTimeout", TimeoutError),
+            patch.object(scraper, "SHOP_MAX_RETRIES", 2),
+            patch.object(scraper, "RETRY_DELAY", 0),
+            patch.object(scraper.time, "sleep"),
+        ):
+            self.assertTrue(scraper.load_shop_page_with_retries(page))
+
+        self.assertEqual(page.goto_calls, 2)
+        self.assertEqual(page.selector_calls, 2)
+
+    def test_waits_until_car_link_count_is_stable(self):
+        class DelayedLinksPage:
+            def __init__(self):
+                self.counts = iter([1, 3, 3])
+
+            def query_selector_all(self, *args, **kwargs):
+                count = next(self.counts)
+                return [FakeCarLink(f"https://example.test/usedcar/detail/{i}/") for i in range(count)]
+
+            def wait_for_timeout(self, *args, **kwargs):
+                return None
+
+        with patch.object(scraper, "SHOP_LINK_STABILITY_WAIT", 0):
+            self.assertTrue(scraper.wait_for_stable_car_links(DelayedLinksPage()))
+
+    def test_stops_after_shop_page_retry_limit(self):
+        class AlwaysTimeoutPage:
+            def __init__(self):
+                self.goto_calls = 0
+
+            def goto(self, *args, **kwargs):
+                self.goto_calls += 1
+                raise TimeoutError("persistent timeout")
+
+            def wait_for_selector(self, *args, **kwargs):
+                return None
+
+            def wait_for_timeout(self, *args, **kwargs):
+                return None
+
+        page = AlwaysTimeoutPage()
+
+        with (
+            patch.object(scraper, "PlaywrightTimeout", TimeoutError),
+            patch.object(scraper, "SHOP_MAX_RETRIES", 2),
+            patch.object(scraper, "RETRY_DELAY", 0),
+            patch.object(scraper.time, "sleep"),
+        ):
+            self.assertFalse(scraper.load_shop_page_with_retries(page))
+
+        self.assertEqual(page.goto_calls, 2)
+
+    def test_returns_empty_when_shop_page_fails_after_retries(self):
+        with (
+            patch.object(scraper, "sync_playwright", return_value=FakePlaywright()),
+            patch.object(scraper, "load_shop_page_with_retries", return_value=False),
+            patch.object(scraper, "extract_car_links") as extract_links,
+        ):
+            self.assertEqual(scraper.scrape_inventory(), [])
+
+        extract_links.assert_not_called()
+
     def test_returns_inventory_when_all_detail_pages_succeed(self):
         car_links = [
             "https://example.test/usedcar/detail/1/",
@@ -136,6 +278,19 @@ class GitCommitAndPushTest(unittest.TestCase):
         self.assertIn(['git', 'add', scraper.OUTPUT_FILE], calls)
         self.assertTrue(any(call[:3] == ['git', 'commit', '-m'] for call in calls))
         self.assertIn(['git', 'push'], calls)
+
+
+class MainTest(unittest.TestCase):
+    def test_does_not_save_or_push_when_scrape_returns_empty(self):
+        with (
+            patch.object(scraper, "scrape_inventory", return_value=[]),
+            patch.object(scraper, "save_to_json") as save_to_json,
+            patch.object(scraper, "git_commit_and_push") as git_commit_and_push,
+        ):
+            self.assertEqual(scraper.main(), 1)
+
+        save_to_json.assert_not_called()
+        git_commit_and_push.assert_not_called()
 
 
 if __name__ == "__main__":
