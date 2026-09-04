@@ -33,12 +33,32 @@ SHOP_URL = os.getenv('SHOP_URL', 'https://www.carsensor.net/shop/miyagi/32641100
 OUTPUT_FILE = os.getenv('OUTPUT_FILE', 'data/carsensor_inventory.json')
 REQUEST_DELAY = int(os.getenv('REQUEST_DELAY', '2'))  # リクエスト間隔（秒）
 PAGE_TIMEOUT = int(os.getenv('PAGE_TIMEOUT', '30000'))  # ページ読み込みタイムアウト（ミリ秒）
+SHOP_MAX_RETRIES = int(os.getenv('SHOP_MAX_RETRIES', '3'))  # 店舗ページ取得の最大試行回数
 DETAIL_MAX_RETRIES = int(os.getenv('DETAIL_MAX_RETRIES', '3'))  # 詳細ページ取得の最大試行回数
 RETRY_DELAY = int(os.getenv('RETRY_DELAY', '5'))  # リトライ間隔（秒）
+SHOP_WAIT_UNTIL = os.getenv('SHOP_WAIT_UNTIL', 'domcontentloaded')
+SHOP_LINK_STABILITY_WAIT = int(os.getenv('SHOP_LINK_STABILITY_WAIT', '2000'))  # リンク数の安定待ち（ミリ秒）
+SHOP_LINK_STABILITY_TIMEOUT = int(os.getenv('SHOP_LINK_STABILITY_TIMEOUT', '10000'))  # 安定待ちの上限（ミリ秒）
 DETAIL_WAIT_UNTIL = os.getenv('DETAIL_WAIT_UNTIL', 'domcontentloaded')
+CAR_LINK_SELECTOR = 'a[href*="/usedcar/detail/"]'
 
 # User-Agent
 USER_AGENT = os.getenv('USER_AGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+
+
+def get_car_link_urls(page: Page) -> List[str]:
+    """在庫リストページから重複を除いた車両詳細URLを取得する。"""
+    links = []
+    car_items = page.query_selector_all(CAR_LINK_SELECTOR)
+
+    for item in car_items:
+        href = item.get_attribute('href')
+        if href:
+            full_url = urljoin(BASE_URL, href)
+            if full_url not in links:
+                links.append(full_url)
+
+    return links
 
 
 def extract_car_links(page: Page) -> List[str]:
@@ -51,19 +71,8 @@ def extract_car_links(page: Page) -> List[str]:
     Returns:
         車両詳細ページURLのリスト
     """
-    links = []
-
     try:
-        # 車両リンクを抽出
-        car_items = page.query_selector_all('a[href*="/usedcar/detail/"]')
-
-        for item in car_items:
-            href = item.get_attribute('href')
-            if href:
-                full_url = urljoin(BASE_URL, href)
-                if full_url not in links:
-                    links.append(full_url)
-
+        links = get_car_link_urls(page)
         logger.info(f"Found {len(links)} car links")
         return links
 
@@ -264,6 +273,87 @@ def extract_car_details_with_retries(page: Page, url: str) -> Optional[Dict[str,
     return None
 
 
+def wait_for_stable_car_links(page: Page) -> bool:
+    """
+    車両リンク数が一定時間変化しないことを確認する。
+
+    店舗ページは初期表示後に車両リンクが追加される場合があるため、
+    最初のリンクが見えただけでは処理を開始しない。
+
+    Returns:
+        リンク数が安定した場合True、上限時間内に安定しない場合False
+    """
+    stability_wait = max(0, SHOP_LINK_STABILITY_WAIT)
+    stability_timeout = max(stability_wait, SHOP_LINK_STABILITY_TIMEOUT)
+    deadline = time.monotonic() + (stability_timeout / 1000)
+    previous_links = set(get_car_link_urls(page))
+
+    if not previous_links:
+        logger.warning("Shop page has no car links after selector became available")
+        return False
+
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            logger.warning(
+                f"Car link count did not stabilize within {stability_timeout} ms"
+            )
+            return False
+
+        if stability_wait:
+            wait_ms = min(stability_wait, max(1, int(remaining * 1000)))
+            page.wait_for_timeout(wait_ms)
+
+        current_links = set(get_car_link_urls(page))
+        if current_links == previous_links:
+            logger.info(f"Car link set stabilized at {len(current_links)} unique links")
+            return True
+
+        logger.info(
+            f"Car link set changed from {len(previous_links)} to {len(current_links)} unique links; "
+            "continuing to wait"
+        )
+        previous_links = current_links
+
+
+def load_shop_page_with_retries(page: Page) -> bool:
+    """
+    店舗在庫ページを読み込み、車両リンクが現れるまで最大試行回数内で再試行する。
+
+    Returns:
+        読み込み成功時True、全試行失敗時False
+    """
+    max_attempts = max(1, SHOP_MAX_RETRIES)
+
+    for attempt in range(1, max_attempts + 1):
+        try:
+            logger.info(
+                f"Fetching shop page (attempt {attempt}/{max_attempts}): {SHOP_URL}"
+            )
+            page.goto(SHOP_URL, wait_until=SHOP_WAIT_UNTIL, timeout=PAGE_TIMEOUT)
+            page.wait_for_selector(CAR_LINK_SELECTOR, state='attached', timeout=PAGE_TIMEOUT)
+            if not wait_for_stable_car_links(page):
+                raise RuntimeError("Car link count did not stabilize")
+
+            if attempt > 1:
+                logger.info(f"Successfully loaded shop page after retry {attempt}/{max_attempts}")
+            return True
+        except PlaywrightTimeout:
+            logger.warning(f"Shop page attempt {attempt}/{max_attempts} timed out")
+        except Exception as e:
+            logger.warning(f"Shop page attempt {attempt}/{max_attempts} failed: {e}")
+
+        if attempt < max_attempts:
+            delay = RETRY_DELAY * attempt
+            logger.warning(
+                f"Retrying shop page {attempt + 1}/{max_attempts} in {delay} seconds"
+            )
+            time.sleep(delay)
+
+    logger.error(f"Failed to load shop page after {max_attempts} attempts: {SHOP_URL}")
+    return False
+
+
 def scrape_inventory() -> List[Dict[str, str]]:
     """
     在庫リスト全体をスクレイピング
@@ -283,9 +373,8 @@ def scrape_inventory() -> List[Dict[str, str]]:
 
         try:
             # 在庫リストページにアクセス
-            logger.info(f"Fetching shop page: {SHOP_URL}")
-            page.goto(SHOP_URL, wait_until='networkidle', timeout=PAGE_TIMEOUT)
-            page.wait_for_timeout(2000)
+            if not load_shop_page_with_retries(page):
+                return []
 
             # 車両リンクを抽出
             car_links = extract_car_links(page)
