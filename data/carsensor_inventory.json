@@ -1,5 +1,18 @@
 [
   {
+    "name": "トヨタ ヴェルファイア",
+    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
+    "year": "2023(R05)",
+    "mileage": "0.7万km",
+    "engine_size": "2500cc",
+    "inspection": "2026(R08)年10月",
+    "repair_history": "なし",
+    "price": "690.0万円",
+    "total_price": "698万円",
+    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
+    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
+  },
+  {
     "name": "ダイハツ タント",
     "description": "660 カスタム X スタイルセレクション　車高調・ローダウン・両側電動ドア・SDナビ・バックカメラ・衝突軽減装置・禁煙車・ハーフレザーシート・コーナーセンサー・スマートキー・フルセグ・Bluetooth・LEDヘッド・ETC・オートハイビーム （ブラック）",
     "year": "2021(R03)",
@@ -20,23 +33,10 @@
     "engine_size": "660cc",
     "inspection": "2027(R09)年3月",
     "repair_history": "なし",
-    "price": "151.0万円",
-    "total_price": "156万円",
+    "price": "149.0万円",
+    "total_price": "154万円",
     "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/209/273/U00048209273/U00048209273_003L.JPG",
     "detail_link": "https://www.carsensor.net/usedcar/detail/AU6225008726/index.html"
-  },
-  {
-    "name": "トヨタ ヴェルファイア",
-    "description": "ハイブリッド 2.5 Zプレミア E-Four 4WD　黒革シート　禁煙車　後席モニター　ETC （プラチナホワイトパールマイカ）",
-    "year": "2023(R05)",
-    "mileage": "0.3万km",
-    "engine_size": "2500cc",
-    "inspection": "2026(R08)年10月",
-    "repair_history": "なし",
-    "price": "757.0万円",
-    "total_price": "768.5万円",
-    "image_url": "https://ccsrpcma.carsensor.net/CSphoto/bkkn/425/580/U00048425580/U00048425580_004L.JPG",
-    "detail_link": "https://www.carsensor.net/usedcar/detail/AU6259052570/index.html"
   },
   {
     "name": "ダイハツ タント",
